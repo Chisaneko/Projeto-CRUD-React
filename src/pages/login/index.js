@@ -1,16 +1,29 @@
 import { useState } from 'react'
 import './index.css'
-
+import usuarioService from '../../service/usuarioService'
 
 function Login () {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [aviso, setAviso] = useState('')
 
     const login = () => {
        if (!password || !email){
-        alert('Os campos de E-mail e senha são obrigatórios!')
+        setAviso('Campos de E-mail e Senha são obrigatórios')
+        return
        }
+       usuarioService.autenticar(email,password)
+       .then(response => {
+            usuarioService.salvarTokenUsuario(response.data.token)
+            usuarioService.salvarUsuario(response.data.usuario)
+            window.location='/'
+       })
+       .catch(erro =>{
+         setAviso('Campos de E-mail ou Senha estão incorretos!')
+       })
+
+
     }
 
     return (
@@ -35,12 +48,18 @@ function Login () {
             </div>
 
             <div className='row center'>
-                <button onClick={login}>Entrar</button>
+                <button id="login-button" onClick={login}>Entrar</button>
+            </div>
+
+            <div className='row center'>
+                <p id='aviso'>{aviso}</p>
             </div>
 
             <div className='row center'>
                 <p className='decoration'>.:</p>
             </div>
+
+
 
         </div>
     )

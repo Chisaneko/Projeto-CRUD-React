@@ -49,6 +49,7 @@ h1{
 }
 
 .forgot:hover{
+    color: var(--border-color);
     cursor: pointer;
     text-decoration: underline;
 }
@@ -75,9 +76,10 @@ input{
 
 input:focus{
     background-color: rgba(170, 182, 216, 0.199);
+    outline: 1px solid var(--font-color);
 }
 
-button{
+#login-button{
     background-color: var(--title-color);
     border-radius: 5px;
     border: none;
@@ -89,8 +91,12 @@ button{
     transition-duration: 300ms;
 }
 
-button:hover{
+#login-button:hover{
     cursor: pointer;
     transform: scale(105%);
+}
+
+#aviso{
+    color: rgb(172, 31, 31);
 }
 
