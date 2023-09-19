@@ -29,6 +29,9 @@ th{
 td{
     text-indent: 4px;
 }
+tr:hover{
+    background-color: rgba(17, 15, 155, 0.068);
+}
 
 .arrange{
     margin: 0 auto;
@@ -46,12 +49,11 @@ th,td{
     
     height: 30px;
     width: 70px;
-    padding: 0px;
-    background-color: var(--h1-color);
+    background-color: var(--title-color);
     color: white;
-    padding: 5px;
     border: none;
     border-radius: 5px;
+    margin:0px 2px;
 
 }
 

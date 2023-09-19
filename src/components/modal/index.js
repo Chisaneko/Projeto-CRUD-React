@@ -37,6 +37,8 @@ function Modal(){
                         <input disabled type="text" className="disabled" id="modalclientdata" name="modalclientdata"/>
                     </div>
                 </div>
+                <br/>
+                <br/>
                 <div className="modal-row flex-end bigline-row">
                     <button  className="row-size-3 modal-button">Salvar</button>
                     <button  className="row-size-3 modal-button">Cancelar</button>
