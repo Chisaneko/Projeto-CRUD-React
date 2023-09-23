@@ -73,4 +73,9 @@ th,td{
     border-radius: 5px;
 }
 
-
+.aviso{
+    margin: 15px auto 0px auto;
+    text-align: center;
+    font-size: 1.2em;
+    color: rgb(175, 47, 47)
+}

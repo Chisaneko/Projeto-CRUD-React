@@ -104,7 +104,7 @@ input:focus{
 }
 
 .disabled{
-    background-color: var(--title-color);
+    background-color: gray;
 
 }
 

@@ -16,10 +16,6 @@ function salvarUsuario(usuario) {
     localStorage.setItem('usuario', JSON.stringify(usuario))
 }
 
-function obterToken(){
-    return localStorage.getItem("token")
-}
-
 function obterUsuario(){
     return localStorage.getItem("usuario") || "{}"
 }
@@ -36,7 +32,7 @@ function direcionarTelaLogin(){
 }
 
 function usuarioEstaLogado(){
-    let token = obterToken()
+    let token = localStorage.getItem('token')
     return !!token
 }
 
@@ -58,7 +54,6 @@ export default {
     salvarTokenUsuario,
     salvarUsuario,
     obterUsuario,
-    obterToken,
     sairDoSistema,
     direcionarTelaLogin,
     usuarioEstaLogado,
