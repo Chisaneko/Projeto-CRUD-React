@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import Cliente from '../../models/cliente'
 
+
 function ClientePage (){
 
     var modalGrande = document.getElementById('modal-grande')
@@ -36,15 +37,24 @@ function ClientePage (){
        .catch(erro =>{
         console.log(erro)
        }) 
-    },[])
-    
-
-
+    },[])  
 
     const adcionar = () =>{
         abrirModal(false)
     }
     
+    const atualizarClienteNaTabela = (clienteAtualizado, removerCliente = false) => {
+        let indice = clientes.findIndex((cliente) => cliente.id === clienteAtualizado.id)
+        
+        if (removerCliente){
+            clientes.splice(indice,1)
+        } else {
+            clientes.splice(indice,1,cliente)
+        }
+
+        setClientes(arr => [... arr])
+    }
+
     const adcionarClienteBackend = (cliente) => {
         clienteService.adcionar(cliente)
         .then(response => {
@@ -56,14 +66,41 @@ function ClientePage (){
     }
 
     const atualizarClienteBackend = (cliente) => {
+        clienteService.atualizar(cliente)
+        .then(response => {
+            atualizarClienteNaTabela(response.data,false)
+            fecharModal()
+        })
+        .catch(erro =>{
+        })
 
     }
 
-    const editar = (id) => {
+    const excluirClienteBackend = (id) => {
+        clienteService.excluir(id)
+        .then(() => {
+            let clienteEncontrado = clientes.find(c => c.id == id)
+            atualizarClienteNaTabela(clienteEncontrado,true)
+            fecharModal()
+        })
+        .catch(erro =>{
+        })
+
+    }
+
+    const editar = (e) => {
         abrirModal(true)
+        let clienteEncontrado = clientes.find(c => c.id == e.target.id)
+        clienteEncontrado.dataCadastro = clienteEncontrado.dataCadastro.substring(0,10)
+        setCliente(clienteEncontrado)
     }
 
-    const excluir = (id) => {
+    const excluir = (e) => {
+        let clienteEncontrado = clientes.find(c => c.id == e.target.id)
+        if (window.confirm("Deseja realmente excluir o cliente " + clienteEncontrado.nome)){
+            excluirClienteBackend(clienteEncontrado.id)
+        }
+
     }
     
     const salvar = () => {
@@ -116,8 +153,8 @@ function ClientePage (){
                     <td>{cli.telefone}</td>
                     <td>{new Date(cli.dataCadastro).toLocaleDateString()}</td>
                     <td>
-                        <button onClick={editar} className='botao-tabela'>Editar</button>
-                        <button onClick={excluir} className='botao-tabela'>Excluir</button>
+                        <button id={cli.id} onClick={editar} className='botao-tabela'>Editar</button>
+                        <button id={cli.id} onClick={excluir} className='botao-tabela'>Excluir</button>
                     </td>
                 </tr>
             ))} 
